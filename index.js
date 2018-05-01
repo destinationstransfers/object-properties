@@ -20,7 +20,7 @@ exports.hasDeepProperty = hasDeepProperty;
 /**
  * Returns deep chained object property, like 'prop1.prop2.prop3'
  *
- * @param {*} obj
+ * @param {Object} obj
  * @param {string | string[]} propertyPath
  */
 function getDeepProperty(obj, propertyPath) {
@@ -45,9 +45,10 @@ exports.getDeepProperty = getDeepProperty;
 /**
  * Sets deep object property(s)
  *
- * @param {*} obj
- * @param {Object | string} propertyPath - dot notated property or object { property: value }
+ * @param {Object} obj
+ * @param {Object | string | string[]} propertyPath - dot notated property or object { property: value }
  * @param {*} propertyValue
+ * @returns {Object}
  */
 function setDeepProperty(obj = {}, propertyPath, propertyValue) {
   if (!propertyPath) return obj;

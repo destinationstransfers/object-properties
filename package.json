@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Browser / node lightweight, fast and well tested library to check, get and set object properties via dot notation",
   "main": "index.js",
+  "typings": "index.d.ts",
   "scripts": {
     "test": "jest"
   },
@@ -30,7 +31,8 @@
   },
   "homepage": "https://github.com/destinationstransfers/object-properties#readme",
   "files": [
-    "index.js"
+    "index.js",
+    "index.d.ts"
   ],
   "devDependencies": {
     "@destinationstransfers/eslint-config": "latest",
