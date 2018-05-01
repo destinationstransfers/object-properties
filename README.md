@@ -1,4 +1,4 @@
-# object-properties
+# object-properties [![codecov](https://codecov.io/gh/destinationstransfers/object-properties/branch/master/graph/badge.svg)](https://codecov.io/gh/destinationstransfers/object-properties) 
 Browser / Node (>=8) lightweight, fast and well tested library to check, get and set object properties via dot notation
 
 ## Motivation
