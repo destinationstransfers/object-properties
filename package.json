@@ -1,0 +1,64 @@
+{
+  "name": "@destinationstransfers/object-properties",
+  "version": "1.0.0",
+  "description": "Browser / node lightweight, fast and well tested library to check, get and set object properties via dot notation",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/destinationstransfers/object-properties.git"
+  },
+  "engines": {
+    "node": ">=8"
+  },
+  "keywords": [
+    "object",
+    "access",
+    "dot",
+    "path",
+    "mongodb",
+    "mongoose",
+    "node",
+    "browser"
+  ],
+  "author": "Tino Vyatkin <tino@vtkn.io>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/destinationstransfers/object-properties/issues"
+  },
+  "homepage": "https://github.com/destinationstransfers/object-properties#readme",
+  "files": [
+    "index.js"
+  ],
+  "devDependencies": {
+    "@destinationstransfers/eslint-config": "latest",
+    "eslint": "latest",
+    "eslint-plugin-node": "latest",
+    "jest": "latest"
+  },
+  "directories": {
+    "test": "__tests__"
+  },
+  "jest": {
+    "collectCoverage": true,
+    "testEnvironment": "node",
+    "verbose": true
+  },
+  "eslintConfig": {
+    "plugins": [
+      "node"
+    ],
+    "extends": [
+      "@destinationstransfers",
+      "plugin:node/recommended"
+    ],
+    "env": {
+      "node": true
+    },
+    "parserOptions": {
+      "sourceType": "script"
+    }
+  }
+}
