@@ -61,6 +61,7 @@ describe('objectProperties helper', () => {
     expect(
       getDeepProperty(
         Object.freeze(testObject),
+        // @ts-ignore
         Object.freeze(['simpleProperty', 'foo', 'bar']),
       ),
     ).toEqual({ end: 'lastPropertyHere' });
@@ -116,7 +117,7 @@ describe('objectProperties helper', () => {
     ).toThrowError();
   });
 
-  test('setDeepPropety returns original object', () => {
+  test('setDeepProperty returns original object', () => {
     const obj = { a: 1, b: 2 };
     expect(setDeepProperty(obj, '', 'wrongValue')).toEqual({ a: 1, b: 2 });
   });
