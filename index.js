@@ -1,6 +1,9 @@
 'use strict';
 
-const { hasOwnProperty: has } = Object.prototype;
+export const hasOwn = Function.bind.call(
+  Function.call,
+  Object.prototype.hasOwnProperty,
+);
 
 function hasDeepProperty(obj, propertyPath) {
   if (!obj || !propertyPath) return false;
@@ -10,7 +13,7 @@ function hasDeepProperty(obj, propertyPath) {
     : propertyPath.split('.');
   let o = obj;
   return !properties.some(propertyName => {
-    if (!has.call(o, propertyName)) return true;
+    if (!hasOwn(o, propertyName)) return true;
     ({ [propertyName]: o } = o);
     return false;
   });
@@ -74,7 +77,7 @@ function setDeepProperty(obj = {}, propertyPath, propertyValue) {
   if (!properties.length) {
     obj[firstProperty] = propertyValue;
   } else {
-    if (!has.call(obj, firstProperty)) obj[firstProperty] = {};
+    if (!hasOwn(obj, firstProperty)) obj[firstProperty] = {};
     setDeepProperty(obj[firstProperty], properties, propertyValue);
   }
   return obj;
