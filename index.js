@@ -1,6 +1,6 @@
 'use strict';
 
-export const hasOwn = Function.bind.call(
+const hasOwn = Function.bind.call(
   Function.call,
   Object.prototype.hasOwnProperty,
 );
