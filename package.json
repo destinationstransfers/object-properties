@@ -1,6 +1,6 @@
 {
   "name": "@destinationstransfers/object-properties",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "description": "Browser / node lightweight, fast and well tested library to check, get, set, peek and remove object properties via dot notation",
   "main": "index.js",
   "typings": "index.d.ts",
