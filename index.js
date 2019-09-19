@@ -18,12 +18,12 @@ function hasDeepProperty(obj, propertyPath) {
     return false;
   });
 }
-exports.hasDeepProperty = hasDeepProperty;
+module.exports.hasDeepProperty = hasDeepProperty;
 
 /**
  * Returns deep chained object property, like 'prop1.prop2.prop3'
  *
- * @param {Object} obj
+ * @param {object} obj
  * @param {string | string[]} propertyPath
  */
 function getDeepProperty(obj, propertyPath) {
@@ -42,16 +42,15 @@ function getDeepProperty(obj, propertyPath) {
   // recursion
   return getDeepProperty(o, properties);
 }
-exports.getDeepProperty = getDeepProperty;
+module.exports.getDeepProperty = getDeepProperty;
 
-/* eslint-disable no-param-reassign */
 /**
  * Sets deep object property(s)
  *
- * @param {Object} obj
- * @param {Object | string | string[]} propertyPath - dot notated property or object { property: value }
+ * @param {object} obj
+ * @param {object|string|string[]} propertyPath - dot notated property or object { property: value }
  * @param {*} propertyValue
- * @returns {Object}
+ * @returns {object}
  */
 function setDeepProperty(obj = {}, propertyPath, propertyValue) {
   if (!propertyPath) return obj;
@@ -82,5 +81,34 @@ function setDeepProperty(obj = {}, propertyPath, propertyValue) {
   }
   return obj;
 }
-/* eslint-enable no-param-reassign */
-exports.setDeepProperty = setDeepProperty;
+module.exports.setDeepProperty = setDeepProperty;
+
+/**
+ * Mutates object in place by removing deepProperty and all adjoined empty parents
+ *
+ * @param {object} obj
+ * @param {string} propertyPath - dot notated property 'a.b'
+ * @param {string[]} [props] - properties as array (used for recursion)
+ * @returns {object}
+ */
+function deleteDeepProperty(
+  obj,
+  propertyPath = '',
+  props = propertyPath.split('.'),
+) {
+  if (typeof obj !== 'object' || Object.keys(obj).length < 1) return {};
+  if (props.length < 1) return obj;
+  if (props.length === 1) {
+    delete obj[props[0]];
+  } else {
+    // we have deep property
+    if (hasOwn(obj, props[0])) {
+      const o = obj[props[0]];
+      deleteDeepProperty(o, '', props.slice(1));
+      // clean empty object
+      if (Object.keys(o).length === 0) delete obj[props[0]];
+    }
+  }
+  return obj;
+}
+module.exports.deleteDeepProperty = deleteDeepProperty;

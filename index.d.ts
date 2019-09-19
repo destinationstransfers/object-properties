@@ -5,13 +5,17 @@ export function hasDeepProperty(
 export function getDeepProperty(
   obj: object,
   propertyPath: string | string[]
-): any;
-export function setDeepProperty(
-  obj?: object,
+): unknown | undefined;
+export function setDeepProperty<T extends object>(
+  obj?: T,
   property: string | string[],
-  value: any
-): object;
-export function setDeepProperty(
-  obj?: object,
+  value: unknown
+): T;
+export function setDeepProperty<T extends object>(
+  obj?: T,
   properties: Record<string, any>
-): object;
+): T;
+export function deleteDeepProperty<T extends object>(
+  obj?: T,
+  property: string
+): T;

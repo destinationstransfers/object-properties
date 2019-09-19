@@ -1,6 +1,11 @@
 'use strict';
 
-const { hasDeepProperty, getDeepProperty, setDeepProperty } = require('./');
+const {
+  hasDeepProperty,
+  getDeepProperty,
+  setDeepProperty,
+  deleteDeepProperty,
+} = require('./');
 
 const testObject = {
   get funProperty() {
@@ -20,7 +25,7 @@ const testObject = {
 };
 
 describe('objectProperties helper', () => {
-  test('find deep property at func property', () => {
+  it('find deep property at func property', () => {
     expect(hasDeepProperty(testObject, 'funProperty.foo.bar')).toBeTruthy();
     expect(
       hasDeepProperty(testObject, ['funProperty', 'foo', 'bar']),
@@ -33,21 +38,21 @@ describe('objectProperties helper', () => {
     ).toBeFalsy();
   });
 
-  test('must return false for non-existent properties', () => {
+  it('must return false for non-existent properties', () => {
     expect(hasDeepProperty(testObject, 'funProperty.foo.tada')).toBeFalsy();
   });
 
-  test('must return false for null and undefined objects', () => {
+  it('must return false for null and undefined objects', () => {
     expect(hasDeepProperty(null, 'funProperty')).toBeFalsy();
     expect(hasDeepProperty(undefined, 'funProperty')).toBeFalsy();
   });
 
-  test('must work either with top level properties', () => {
+  it('must work either with top level properties', () => {
     expect(hasDeepProperty(testObject, 'wrongprop')).toBeFalsy();
     expect(hasDeepProperty(testObject, 'simpleProperty')).toBeTruthy();
   });
 
-  test('getDeepProperty', () => {
+  it('getDeepProperty', () => {
     expect(
       getDeepProperty(Object.freeze(testObject), 'simpleProperty.foo.bar.end'),
     ).toBe('lastPropertyHere');
@@ -57,7 +62,7 @@ describe('objectProperties helper', () => {
     expect(getDeepProperty(1, 'a.b')).toBeUndefined();
   });
 
-  test('getDeepProperty with path as frozen array', () => {
+  it('getDeepProperty with path as frozen array', () => {
     expect(
       getDeepProperty(
         Object.freeze(testObject),
@@ -67,7 +72,7 @@ describe('objectProperties helper', () => {
     ).toEqual({ end: 'lastPropertyHere' });
   });
 
-  test('setDeepProperty', () => {
+  it('setDeepProperty', () => {
     const res = { propA: false, propB: { propE: 'keepIt' } };
     setDeepProperty(res, 'propB.propC.propD', 'XXX');
     expect(res).toEqual(
@@ -83,7 +88,7 @@ describe('objectProperties helper', () => {
     );
   });
 
-  test('setDeepProperty with object', () => {
+  it('setDeepProperty with object', () => {
     const res = { propA: false, propB: { propE: 'keepIt' } };
     setDeepProperty(res, {
       'propB.propC.propD': 'XXX',
@@ -107,18 +112,41 @@ describe('objectProperties helper', () => {
     );
   });
 
-  test('setDeepProperty with incompatible set of arguments must throw', () => {
+  it('setDeepProperty with incompatible set of arguments must throw', () => {
     expect(() =>
       setDeepProperty(
         undefined,
         { a: 1, 'b.c': 2 },
         'and some wrong value here',
       ),
-    ).toThrowError();
+    ).toThrow();
   });
 
-  test('setDeepProperty returns original object', () => {
+  it('setDeepProperty returns original object', () => {
     const obj = { a: 1, b: 2 };
     expect(setDeepProperty(obj, '', 'wrongValue')).toEqual({ a: 1, b: 2 });
+  });
+
+  it('deleteDeepProperty deletes top level properties', () => {
+    const obj = { a: 1, b: 2 };
+    deleteDeepProperty(obj, 'b');
+    expect(obj).toEqual({ a: 1 });
+  });
+
+  it('deleteDeepProperty deletes deep level properties', () => {
+    const obj = { a: 1, b: { c: 3, e: 4 } };
+    deleteDeepProperty(obj, 'b.c');
+    expect(obj).toEqual({ a: 1, b: { e: 4 } });
+  });
+
+  it('deleteDeepProperty cleans up deep level properties', () => {
+    const obj = { a: 1, b: { c: 3, e: 4 } };
+    deleteDeepProperty(obj, 'b.c');
+    deleteDeepProperty(obj, 'b.e');
+    expect(obj).toEqual({ a: 1 });
+
+    const obj2 = { a: { b: { c: { d: 'eee' } } } };
+    deleteDeepProperty(obj2, 'a.b.c.d');
+    expect(obj2).toEqual({});
   });
 });

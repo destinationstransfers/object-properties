@@ -26,11 +26,17 @@ setDeepProperty(obj, 'a.b.c.d', 'test1');
 setDeepProperty(obj, { e: 1, 'a.b.f': 2 });
 // obj is now { a: { b: { c: { d: 'test1' }, f: 2 } }, e: 1 }
 
+// DEPRECATED since TypeScript 3.7/babel - use optional chaining operator
 hasDeepProperty(obj, 'a.b.c'); // => true
 hasDeepProperty(obj, 'a.d'); // => false
 
+// DEPRECATED since TypeScript 3.7/babel - use optional chaining operator
 getDeepProperty(obj, 'a.b.f'); // => 2
 getDeepProperty(obj, 'a.b.f.g'); // => undefined
+
+// mutates object in place
+deleteDeepProperty(obj, 'a.b.c'); // { a: { b: { f: 2 }}, e: 1 }
+deleteDeepProperty(obj, 'a.b.f'); // trims all empty objects way up too -> { e: 1 }
 ```
 
 ## License
