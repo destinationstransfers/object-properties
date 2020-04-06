@@ -35,7 +35,7 @@
     "index.d.ts"
   ],
   "devDependencies": {
-    "@destinationstransfers/eslint-plugin": "2.9.114",
+    "@destinationstransfers/eslint-plugin": "2.9.116",
     "@types/jest": "24.9.1",
     "eslint": "latest",
     "jest": "latest"
