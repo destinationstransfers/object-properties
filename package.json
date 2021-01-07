@@ -36,7 +36,7 @@
   ],
   "devDependencies": {
     "@destinationstransfers/eslint-plugin": "2.9.206",
-    "@types/jest": "26.0.19",
+    "@types/jest": "26.0.20",
     "eslint": "latest",
     "jest": "latest"
   },
